@@ -1,0 +1,80 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-nunito bg-cream-light min-h-screen;
+  }
+}
+
+@layer components {
+  /* Awning stripe */
+  .awning {
+    background: repeating-linear-gradient(
+      90deg,
+      #c0392b 0px, #c0392b 38px,
+      #e74c3c 38px, #e74c3c 76px
+    );
+  }
+
+  /* Category card hover bounce */
+  .cat-bounce:hover {
+    animation: bounce-soft 0.4s ease;
+  }
+
+  /* Fade-in for pages */
+  .fade-in {
+    animation: fadeIn 0.35s ease;
+  }
+
+  /* Recipe card */
+  .recipe-card {
+    @apply bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer border border-cream;
+  }
+  .recipe-card:hover {
+    transform: translateY(-6px);
+  }
+
+  /* Form input */
+  .form-input {
+    @apply w-full px-4 py-3 rounded-xl border-2 border-cream bg-cream-light text-brown-dark font-nunito text-base outline-none transition-all duration-200;
+  }
+  .form-input:focus {
+    @apply border-brown;
+  }
+
+  /* Primary button */
+  .btn-primary {
+    @apply bg-brown-dark text-cream-light font-bold py-3 px-6 rounded-xl hover:bg-brown transition-all duration-200 font-nunito cursor-pointer;
+  }
+  .btn-primary:hover {
+    transform: translateY(-1px);
+  }
+
+  /* Soft badge */
+  .category-badge {
+    @apply inline-block bg-cream text-brown text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounce-soft {
+  0%,100% { transform: translateY(0) scale(1); }
+  40%      { transform: translateY(-10px) scale(1.08); }
+  70%      { transform: translateY(-4px) scale(1.04); }
+}
+
+@keyframes float {
+  0%,100% { transform: translateY(0) rotate(0deg); }
+  50%      { transform: translateY(-18px) rotate(8deg); }
+}
+
+.floating { animation: float 5s ease-in-out infinite; }
+.floating-delay-1 { animation-delay: 1s; }
+.floating-delay-2 { animation-delay: 2.5s; }
+.floating-delay-3 { animation-delay: 0.5s; }
