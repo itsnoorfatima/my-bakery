@@ -1,4 +1,4 @@
-# 🧁 My Bakery — Full Stack Baking App
+# 🧁 My Bakery 
 
 A cozy, aesthetic baking website built with **React + Vite + Tailwind CSS + Supabase**.
 
