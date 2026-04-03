@@ -54,18 +54,17 @@ export default function LoginPage() {
       flexDirection: 'column',
       overflow: 'hidden',
       position: 'relative',
-      // Brick wall
-      background: '#C4956A',
+      background: '#1C0F07',
       backgroundImage: `
         repeating-linear-gradient(
           0deg,
           transparent 0px, transparent 28px,
-          rgba(0,0,0,0.12) 28px, rgba(0,0,0,0.12) 30px
+          rgba(255,255,255,0.04) 28px, rgba(255,255,255,0.04) 30px
         ),
         repeating-linear-gradient(
           90deg,
           transparent 0px, transparent 60px,
-          rgba(0,0,0,0.07) 60px, rgba(0,0,0,0.07) 62px
+          rgba(255,255,255,0.025) 60px, rgba(255,255,255,0.025) 62px
         )
       `,
     }}>
@@ -78,26 +77,19 @@ export default function LoginPage() {
         }
         @keyframes doorSwing {
           0%   { transform: perspective(1400px) rotateY(0deg); }
-          100% { transform: perspective(1400px) rotateY(-110deg); }
+          100% { transform: perspective(1400px) rotateY(-115deg); }
         }
-        @keyframes lightReveal {
+        @keyframes voidReveal {
           0%   { opacity: 0; }
-          40%  { opacity: 1; }
+          50%  { opacity: 1; }
           100% { opacity: 1; }
-        }
-        @keyframes boardSway {
-          0%,100% { transform: rotate(-2deg); }
-          50%     { transform: rotate(2deg); }
         }
         .page-wrap { animation: pageIn 0.6s ease forwards; }
         .door-panel.opening {
           animation: doorSwing 1.2s cubic-bezier(0.4,0,0.2,1) forwards;
           transform-origin: left center;
         }
-        .warm-light {
-          animation: lightReveal 1.6s ease forwards;
-        }
-        .board-sign { animation: boardSway 3s ease-in-out infinite; transform-origin: top center; }
+        .void-reveal { animation: voidReveal 1.6s ease forwards; }
         .primary-btn { transition: all 0.2s !important; }
         .primary-btn:hover { transform: translateY(-2px) !important; filter: brightness(1.1) !important; }
         .google-btn { transition: all 0.2s !important; }
@@ -108,25 +100,26 @@ export default function LoginPage() {
 
       <div className="page-wrap" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
 
-        {/* ── AWNING ── */}
-        <div style={{ width: '100%', flexShrink: 0, zIndex: 20, position: 'relative' }}>
+        {/* ── AWNING — brought lower/taller ── */}
+        <div style={{ width: '100%', flexShrink: 0, zIndex: 20 }}>
           <div style={{
             width: '100%',
             background: 'repeating-linear-gradient(90deg, #E8392B 0px, #E8392B 44px, #C0301F 44px, #C0301F 88px)',
-            paddingTop: 30, paddingBottom: 14,
-            boxShadow: '0 6px 28px rgba(0,0,0,0.4)',
+            paddingTop: 40,
+            paddingBottom: 20,
+            boxShadow: '0 8px 32px rgba(0,0,0,0.5)',
             position: 'relative',
           }}>
             <div style={{
               position: 'absolute', inset: 0,
-              background: 'linear-gradient(180deg, rgba(255,255,255,0.1) 0%, transparent 100%)',
+              background: 'linear-gradient(180deg, rgba(255,255,255,0.09) 0%, transparent 100%)',
               pointerEvents: 'none',
             }}/>
             <p style={{
               textAlign: 'center', margin: 0, position: 'relative',
               fontFamily: "'Playfair Display', serif",
               fontStyle: 'italic', fontWeight: 700,
-              fontSize: 28, color: '#FFF5EE',
+              fontSize: 30, color: '#FFF5EE',
               textShadow: '0 2px 10px rgba(0,0,0,0.35)',
               letterSpacing: 3,
             }}>✦ My Bakery ✦</p>
@@ -135,7 +128,7 @@ export default function LoginPage() {
           <div style={{ display: 'flex', width: '100%', background: '#C0301F' }}>
             {Array.from({ length: 24 }).map((_, i) => (
               <div key={i} style={{
-                flex: 1, height: 30,
+                flex: 1, height: 34,
                 background: '#E8392B',
                 borderRadius: '0 0 50% 50%',
               }}/>
@@ -149,102 +142,40 @@ export default function LoginPage() {
           display: 'flex',
           alignItems: 'flex-end',
           justifyContent: 'center',
-          padding: '30px 20px 0',
+          padding: '40px 20px 0',
           position: 'relative',
-          gap: 40,
         }}>
 
-          {/* Left wall panel with small sign */}
-          <div style={{
-            width: 120, height: 320,
-            background: '#B8845A',
-            borderRadius: '8px 8px 0 0',
-            boxShadow: 'inset -4px 0 12px rgba(0,0,0,0.15)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexShrink: 0,
-          }}>
-            {/* Wall sign */}
-            <div style={{
-              width: 80, padding: '10px 8px',
-              background: '#FDF6EE',
-              borderRadius: 8,
-              border: '3px solid #8B5E3C',
-              textAlign: 'center',
-              boxShadow: '2px 2px 8px rgba(0,0,0,0.2)',
-            }}>
-              <p style={{
-                fontFamily: "'Playfair Display', serif",
-                fontStyle: 'italic', fontWeight: 700,
-                color: '#4A3528', fontSize: 12, margin: '0 0 2px',
-              }}>My</p>
-              <p style={{
-                fontFamily: "'Playfair Display', serif",
-                fontStyle: 'italic', fontWeight: 700,
-                color: '#4A3528', fontSize: 12, margin: 0,
-              }}>Bakery</p>
-            </div>
-          </div>
-
-          {/* CENTER DOOR SECTION */}
+          {/* BIG CENTER DOOR */}
           <div style={{
             position: 'relative',
-            width: 320,
+            width: 380,
             flexShrink: 0,
           }}>
             {/* Door frame */}
             <div style={{
               background: '#5C3317',
-              borderRadius: '12px 12px 0 0',
-              padding: '14px 14px 0',
-              boxShadow: '0 -4px 24px rgba(0,0,0,0.3), inset 0 2px 6px rgba(255,255,255,0.06)',
+              borderRadius: '14px 14px 0 0',
+              padding: '12px 12px 0',
+              boxShadow: '0 -6px 30px rgba(0,0,0,0.4), inset 0 2px 6px rgba(255,255,255,0.05)',
+              border: '3px solid #3D2008',
+              borderBottom: 'none',
             }}>
-              {/* Transom window above door */}
-              <div style={{
-                background: 'rgba(180,220,255,0.15)',
-                border: '2px solid #3D2008',
-                borderRadius: '8px 8px 0 0',
-                height: 36,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                marginBottom: 10,
-                backdropFilter: 'blur(4px)',
-              }}>
-                <p style={{
-                  fontFamily: "'Playfair Display', serif",
-                  fontStyle: 'italic',
-                  color: 'rgba(255,240,210,0.7)',
-                  fontSize: 12, margin: 0, letterSpacing: 2,
-                }}>Welcome</p>
-              </div>
-
               {/* THE DOOR */}
               <div style={{
                 position: 'relative',
-                height: 480,
+                height: 560,
                 perspective: 1400,
                 overflow: 'visible',
               }}>
-                {/* Warm interior glow (visible when door opens) */}
+                {/* Brown void behind door */}
                 {entering && (
-                  <div className="warm-light" style={{
+                  <div className="void-reveal" style={{
                     position: 'absolute', inset: 0,
-                    background: 'linear-gradient(180deg, #F5A623 0%, #E8832A 100%)',
+                    background: '#1A0A04',
                     borderRadius: 4,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
                     zIndex: 1,
-                  }}>
-                    <p style={{
-                      fontFamily: "'Playfair Display', serif",
-                      fontStyle: 'italic',
-                      color: 'rgba(255,255,255,0.9)',
-                      fontSize: 20, fontWeight: 700,
-                    }}>Come on in! </p>
-                  </div>
+                  }}/>
                 )}
 
                 {/* DOOR PANEL */}
@@ -258,51 +189,39 @@ export default function LoginPage() {
                     zIndex: 10,
                     transformStyle: 'preserve-3d',
                     transformOrigin: 'left center',
-                    boxShadow: '4px 0 20px rgba(0,0,0,0.4)',
+                    boxShadow: '6px 0 24px rgba(0,0,0,0.5)',
                     overflow: 'hidden',
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    paddingTop: 24,
+                    paddingTop: 20,
+                    paddingBottom: 20,
                   }}
                 >
-                  {/* Door window panels (decorative top) */}
-                  <div style={{
-                    display: 'flex', gap: 8, marginBottom: 16,
-                    padding: '0 20px', width: '100%', boxSizing: 'border-box',
-                  }}>
-                    {[0,1].map(i => (
-                      <div key={i} style={{
-                        flex: 1, height: 50,
-                        background: 'rgba(180,220,255,0.08)',
-                        border: '1.5px solid rgba(218,165,32,0.25)',
-                        borderRadius: 4,
-                      }}/>
-                    ))}
-                  </div>
-
                   {/* LOGIN CARD ON DOOR */}
                   <div style={{
                     width: '100%',
-                    padding: '0 16px',
+                    padding: '0 18px',
                     boxSizing: 'border-box',
                     flex: 1,
-                    overflowY: 'auto',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
                   }}>
                     <div style={{
-                      background: 'rgba(253,246,238,0.96)',
-                      borderRadius: 12,
-                      padding: '20px 18px 16px',
-                      boxShadow: '0 4px 20px rgba(0,0,0,0.3)',
+                      background: 'rgba(45,22,10,0.92)',
+                      borderRadius: 14,
+                      padding: '22px 20px 18px',
+                      boxShadow: '0 4px 20px rgba(0,0,0,0.4)',
+                      border: '1px solid rgba(255,200,150,0.1)',
                     }}>
-                      <div style={{ textAlign: 'center', marginBottom: 14 }}>
-                        <div style={{ fontSize: 28, marginBottom: 6 }}></div>
+                      <div style={{ textAlign: 'center', marginBottom: 16 }}>
                         <h1 style={{
                           fontFamily: "'Playfair Display', serif",
-                          fontSize: 18, color: '#4A3528',
-                          margin: '0 0 3px', fontWeight: 700,
+                          fontSize: 20, color: '#F5E6D3',
+                          margin: '0 0 4px', fontWeight: 700,
                         }}>Welcome to My Bakery</h1>
-                        <p style={{ color: '#8B7355', fontSize: 12, margin: 0 }}>
+                        <p style={{ color: 'rgba(245,230,211,0.6)', fontSize: 12, margin: 0 }}>
                           {mode === 'login' ? 'Sign in to explore recipes ✨' : 'Create your account ✨'}
                         </p>
                       </div>
@@ -322,9 +241,10 @@ export default function LoginPage() {
                           style={{
                             width: '100%', display: 'block', boxSizing: 'border-box',
                             padding: '10px 12px', marginBottom: 8,
-                            border: '1.5px solid #E8D5C0', borderRadius: 9,
+                            border: '1.5px solid rgba(255,200,150,0.2)',
+                            borderRadius: 9,
                             fontFamily: "'Nunito', sans-serif", fontSize: 13,
-                            background: '#FFFAF5', color: '#4A3528',
+                            background: 'rgba(255,245,235,0.95)', color: '#4A3528',
                           }}
                         />
                       )}
@@ -335,9 +255,10 @@ export default function LoginPage() {
                         style={{
                           width: '100%', display: 'block', boxSizing: 'border-box',
                           padding: '10px 12px', marginBottom: 8,
-                          border: '1.5px solid #E8D5C0', borderRadius: 9,
+                          border: '1.5px solid rgba(255,200,150,0.2)',
+                          borderRadius: 9,
                           fontFamily: "'Nunito', sans-serif", fontSize: 13,
-                          background: '#FFFAF5', color: '#4A3528',
+                          background: 'rgba(255,245,235,0.95)', color: '#4A3528',
                         }}
                       />
 
@@ -346,31 +267,32 @@ export default function LoginPage() {
                         onKeyDown={e => e.key === 'Enter' && handleSubmit()}
                         style={{
                           width: '100%', display: 'block', boxSizing: 'border-box',
-                          padding: '10px 12px', marginBottom: 12,
-                          border: '1.5px solid #E8D5C0', borderRadius: 9,
+                          padding: '10px 12px', marginBottom: 14,
+                          border: '1.5px solid rgba(255,200,150,0.2)',
+                          borderRadius: 9,
                           fontFamily: "'Nunito', sans-serif", fontSize: 13,
-                          background: '#FFFAF5', color: '#4A3528',
+                          background: 'rgba(255,245,235,0.95)', color: '#4A3528',
                         }}
                       />
 
                       <button className="primary-btn" onClick={handleSubmit} disabled={loading}
                         style={{
                           width: '100%', display: 'block', boxSizing: 'border-box',
-                          padding: '11px', marginBottom: 10,
+                          padding: '12px', marginBottom: 10,
                           background: 'linear-gradient(135deg, #E8392B, #C0301F)',
                           color: 'white', border: 'none', borderRadius: 9,
                           fontFamily: "'Nunito', sans-serif",
                           fontSize: 14, fontWeight: 800, cursor: 'pointer',
-                          boxShadow: '0 3px 12px rgba(232,57,43,0.35)',
+                          boxShadow: '0 3px 12px rgba(232,57,43,0.4)',
                         }}
                       >
                         {loading ? 'Loading...' : mode === 'login' ? 'Sign In' : 'Create Account'}
                       </button>
 
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 8, margin: '4px 0 10px' }}>
-                        <div style={{ flex: 1, height: 1, background: '#E8D5C0' }}/>
-                        <span style={{ color: '#C4A882', fontSize: 11, fontWeight: 600 }}>or</span>
-                        <div style={{ flex: 1, height: 1, background: '#E8D5C0' }}/>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 8, margin: '2px 0 10px' }}>
+                        <div style={{ flex: 1, height: 1, background: 'rgba(255,200,150,0.2)' }}/>
+                        <span style={{ color: 'rgba(245,230,211,0.4)', fontSize: 11, fontWeight: 600 }}>or</span>
+                        <div style={{ flex: 1, height: 1, background: 'rgba(255,200,150,0.2)' }}/>
                       </div>
 
                       <button className="google-btn" onClick={handleGoogle}
@@ -378,11 +300,12 @@ export default function LoginPage() {
                           width: '100%', display: 'flex', boxSizing: 'border-box',
                           alignItems: 'center', justifyContent: 'center',
                           gap: 8, padding: '10px 12px', marginBottom: 12,
-                          background: 'white', border: '1.5px solid #E8D5C0',
+                          background: 'rgba(255,245,235,0.95)',
+                          border: '1.5px solid rgba(255,200,150,0.2)',
                           borderRadius: 9, cursor: 'pointer',
                           fontFamily: "'Nunito', sans-serif",
                           fontSize: 13, fontWeight: 700, color: '#555',
-                          boxShadow: '0 2px 6px rgba(0,0,0,0.07)',
+                          boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
                         }}
                       >
                         <svg width="16" height="16" viewBox="0 0 24 24">
@@ -394,7 +317,7 @@ export default function LoginPage() {
                         Continue with Google
                       </button>
 
-                      <p style={{ textAlign: 'center', fontSize: 12, color: '#8B7355', margin: 0 }}>
+                      <p style={{ textAlign: 'center', fontSize: 12, color: 'rgba(245,230,211,0.6)', margin: 0 }}>
                         {mode === 'login' ? "Don't have an account? " : 'Already have an account? '}
                         <button
                           onClick={() => { setMode(mode === 'login' ? 'signup' : 'login'); setError('') }}
@@ -415,11 +338,11 @@ export default function LoginPage() {
                   {/* Door knob */}
                   <div style={{
                     position: 'absolute',
-                    right: 14, top: '50%',
-                    width: 12, height: 12,
+                    right: 16, top: '50%',
+                    width: 14, height: 14,
                     borderRadius: '50%',
                     background: 'radial-gradient(circle at 35% 35%, #F0C040, #C8960C)',
-                    boxShadow: '0 2px 6px rgba(0,0,0,0.4)',
+                    boxShadow: '0 2px 6px rgba(0,0,0,0.5)',
                     transform: 'translateY(-50%)',
                   }}/>
                 </div>
@@ -428,93 +351,20 @@ export default function LoginPage() {
 
             {/* Door step */}
             <div style={{
-              height: 12,
+              height: 14,
               background: '#8B6914',
-              borderRadius: '0 0 4px 4px',
-              boxShadow: '0 4px 8px rgba(0,0,0,0.3)',
+              borderRadius: '0 0 6px 6px',
+              boxShadow: '0 4px 10px rgba(0,0,0,0.4)',
             }}/>
-          </div>
-
-          {/* Right wall panel */}
-          <div style={{
-            width: 120, height: 320,
-            background: '#B8845A',
-            borderRadius: '8px 8px 0 0',
-            boxShadow: 'inset 4px 0 12px rgba(0,0,0,0.15)',
-            flexShrink: 0,
-          }}/>
-
-          {/* Sandwich board */}
-          <div className="board-sign" style={{
-            position: 'absolute',
-            bottom: 0, right: '2%',
-            zIndex: 20,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}>
-            <div style={{
-              width: 30, height: 6,
-              background: '#7A5C14',
-              borderRadius: 3, marginBottom: 2,
-            }}/>
-            <div style={{ display: 'flex', gap: 3 }}>
-              <div style={{
-                width: 75,
-                background: 'linear-gradient(160deg, #E8392B, #B02818)',
-                borderRadius: '6px 6px 3px 3px',
-                padding: '10px 8px 12px',
-                textAlign: 'center',
-                border: '2px solid #8B1A0A',
-                transform: 'rotate(-4deg)',
-                transformOrigin: 'top center',
-                boxShadow: '2px 4px 12px rgba(0,0,0,0.35)',
-              }}>
-                <p style={{
-                  fontFamily: "'Playfair Display', serif",
-                  fontStyle: 'italic', color: '#FFF5EE',
-                  fontSize: 13, fontWeight: 700, margin: '0 0 4px',
-                }}>My Bakery</p>
-                <div style={{ height: 1, background: 'rgba(255,245,238,0.3)', margin: '4px 0' }}/>
-                <p style={{ color: 'rgba(255,245,238,0.8)', fontSize: 8, margin: '0 0 2px', letterSpacing: 1 }}>OPEN</p>
-                <p style={{ color: '#FFF5EE', fontSize: 12, fontWeight: 800, margin: '0 0 1px' }}>10 AM</p>
-                <p style={{ color: 'rgba(255,245,238,0.7)', fontSize: 10, margin: 0 }}>– 9 PM</p>
-              </div>
-              <div style={{
-                width: 75,
-                background: 'linear-gradient(160deg, #C0301F, #8B1A0A)',
-                borderRadius: '6px 6px 3px 3px',
-                padding: '10px 8px 12px',
-                textAlign: 'center',
-                border: '2px solid #6B1008',
-                transform: 'rotate(4deg)',
-                transformOrigin: 'top center',
-                boxShadow: '2px 4px 12px rgba(0,0,0,0.25)',
-              }}>
-                <p style={{
-                  fontFamily: "'Playfair Display', serif",
-                  fontStyle: 'italic', color: 'rgba(255,245,238,0.75)',
-                  fontSize: 12, fontWeight: 700, margin: '0 0 4px',
-                }}>Fresh</p>
-                <div style={{ height: 1, background: 'rgba(255,245,238,0.2)', margin: '4px 0' }}/>
-                <p style={{ color: 'rgba(255,245,238,0.6)', fontSize: 8, margin: '0 0 2px', letterSpacing: 1 }}>BAKED</p>
-                <p style={{ color: 'rgba(255,245,238,0.7)', fontSize: 12, fontWeight: 800, margin: 0 }}>Daily</p>
-              </div>
-            </div>
-            <div style={{ display: 'flex', gap: 44, marginTop: -2 }}>
-              <div style={{ width: 4, height: 20, background: '#6B4C14', borderRadius: '0 0 2px 2px', transform: 'rotate(-8deg)', transformOrigin: 'top' }}/>
-              <div style={{ width: 4, height: 20, background: '#6B4C14', borderRadius: '0 0 2px 2px', transform: 'rotate(8deg)', transformOrigin: 'top' }}/>
-            </div>
-            <div style={{ width: 65, height: 4, background: '#5C3D10', borderRadius: 2 }}/>
           </div>
         </div>
 
-        {/* Ground / pavement */}
+        {/* Ground */}
         <div style={{
-          width: '100%', height: 40,
-          background: 'linear-gradient(180deg, #8B6914 0%, #6B5010 100%)',
+          width: '100%', height: 44,
+          background: 'linear-gradient(180deg, #6B5010 0%, #4A3408 100%)',
           flexShrink: 0,
-          boxShadow: 'inset 0 4px 12px rgba(0,0,0,0.3)',
+          boxShadow: 'inset 0 4px 14px rgba(0,0,0,0.4)',
         }}/>
       </div>
     </div>
