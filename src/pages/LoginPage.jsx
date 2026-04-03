@@ -48,28 +48,14 @@ export default function LoginPage() {
       fontFamily: "'Nunito', sans-serif",
       position: 'relative',
       overflow: 'hidden',
-      // Brick wall background
-      background: '#C8A882',
+      background: '#2C1A10',
       backgroundImage: `
-        repeating-linear-gradient(
-          0deg,
-          transparent,
-          transparent 28px,
-          rgba(0,0,0,0.08) 28px,
-          rgba(0,0,0,0.08) 30px
-        ),
-        repeating-linear-gradient(
-          90deg,
-          transparent,
-          transparent 58px,
-          rgba(0,0,0,0.06) 58px,
-          rgba(0,0,0,0.06) 60px
-        )
+        repeating-linear-gradient(0deg, transparent, transparent 28px, rgba(255,255,255,0.03) 28px, rgba(255,255,255,0.03) 30px),
+        repeating-linear-gradient(90deg, transparent, transparent 58px, rgba(255,255,255,0.02) 58px, rgba(255,255,255,0.02) 60px)
       `,
     }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Nunito:wght@400;600;700;800&display=swap');
-
         @keyframes windowFadeIn {
           from { opacity: 0; transform: translateY(24px) scale(0.98); }
           to { opacity: 1; transform: translateY(0px) scale(1); }
@@ -96,40 +82,34 @@ export default function LoginPage() {
 
       {/* ── AWNING ── */}
       <div style={{ width: '100%', flexShrink: 0, zIndex: 10, position: 'relative' }}>
-        {/* Awning stripes */}
+        {/* Main stripe body — taller */}
         <div style={{
           width: '100%',
           background: 'repeating-linear-gradient(90deg, #E8392B 0px, #E8392B 40px, #C0301F 40px, #C0301F 80px)',
-          paddingTop: 18,
-          paddingBottom: 10,
-          boxShadow: '0 8px 30px rgba(0,0,0,0.35)',
+          paddingTop: 28,
+          paddingBottom: 14,
+          boxShadow: '0 8px 30px rgba(0,0,0,0.5)',
           position: 'relative',
         }}>
-          {/* Subtle stripe overlay for depth */}
           <div style={{
             position: 'absolute', inset: 0,
-            background: 'repeating-linear-gradient(90deg, rgba(255,255,255,0.07) 0px, rgba(255,255,255,0.07) 40px, transparent 40px, transparent 80px)',
+            background: 'repeating-linear-gradient(90deg, rgba(255,255,255,0.06) 0px, rgba(255,255,255,0.06) 40px, transparent 40px, transparent 80px)',
           }}/>
           <p style={{
             textAlign: 'center', margin: 0, position: 'relative',
             fontFamily: "'Playfair Display', serif",
             fontStyle: 'italic', fontWeight: 700,
-            fontSize: 24, color: '#FFF5EE',
+            fontSize: 26, color: '#FFF5EE',
             textShadow: '0 2px 8px rgba(0,0,0,0.3)',
             letterSpacing: 2,
           }}>✦ My Bakery ✦</p>
-          <p style={{
-            textAlign: 'center', margin: '3px 0 0', position: 'relative',
-            fontSize: 10, color: 'rgba(255,245,238,0.65)',
-            letterSpacing: 5,
-          }}>EST. 2024 · FRESH DAILY</p>
         </div>
 
-        {/* Scalloped fringe — rounded droplets */}
+        {/* Scalloped fringe */}
         <div style={{ display: 'flex', width: '100%', background: '#C0301F', marginTop: -1 }}>
           {Array.from({ length: 22 }).map((_, i) => (
             <div key={i} style={{
-              flex: 1, height: 28,
+              flex: 1, height: 30,
               background: '#E8392B',
               borderRadius: '0 0 50% 50%',
               border: '1px solid rgba(0,0,0,0.1)',
@@ -138,124 +118,129 @@ export default function LoginPage() {
         </div>
       </div>
 
-      {/* ── STOREFRONT WALL (brick) ── */}
+      {/* ── MAIN AREA ── */}
       <div style={{
         width: '100%',
         flex: 1,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '30px 16px 50px',
+        padding: '36px 16px 60px',
         position: 'relative',
       }}>
 
-        {/* Brick rows overlay */}
+        {/* ── SANDWICH BOARD ── */}
         <div style={{
-          position: 'absolute', inset: 0,
-          backgroundImage: `
-            repeating-linear-gradient(
-              0deg,
-              rgba(160,100,60,0.18) 0px,
-              rgba(160,100,60,0.18) 1px,
-              transparent 1px,
-              transparent 30px
-            )
-          `,
-          pointerEvents: 'none',
-        }}/>
-
-        {/* Sandwich board — bottom left */}
-        <div className="board" style={{
           position: 'absolute',
-          bottom: 24, left: '5%',
+          bottom: 30,
+          right: '8%',
           zIndex: 20,
-          width: 90,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
         }}>
-          {/* Board top connector */}
+          {/* Hinge at top */}
           <div style={{
-            width: 4, height: 16,
+            width: 30, height: 8,
             background: '#8B6914',
-            margin: '0 auto',
-            borderRadius: 2,
+            borderRadius: 4,
+            marginBottom: 2,
+            boxShadow: '0 2px 4px rgba(0,0,0,0.3)',
           }}/>
-          {/* Board body */}
-          <div style={{
-            background: 'linear-gradient(160deg, #E8392B, #C0301F)',
-            borderRadius: 8,
-            padding: '10px 8px',
-            textAlign: 'center',
-            boxShadow: '3px 4px 16px rgba(0,0,0,0.35)',
-            border: '2px solid #A02518',
-          }}>
-            <p style={{
-              fontFamily: "'Playfair Display', serif",
-              fontStyle: 'italic',
-              color: '#FFF5EE', fontSize: 13, fontWeight: 700,
-              margin: '0 0 2px', letterSpacing: 0.5,
-            }}>My</p>
-            <p style={{
-              fontFamily: "'Playfair Display', serif",
-              fontStyle: 'italic',
-              color: '#FFF5EE', fontSize: 13, fontWeight: 700,
-              margin: '0 0 6px',
-            }}>Bakery</p>
-            <div style={{ height: 1, background: 'rgba(255,245,238,0.3)', margin: '5px 0' }}/>
-            <p style={{ color: 'rgba(255,245,238,0.8)', fontSize: 9, margin: '0 0 2px', letterSpacing: 1 }}>OPEN</p>
-            <p style={{ color: '#FFF5EE', fontSize: 11, fontWeight: 800, margin: '0 0 1px' }}>10 AM</p>
-            <p style={{ color: 'rgba(255,245,238,0.6)', fontSize: 9, margin: 0 }}>– 9 PM</p>
+
+          {/* Board panels */}
+          <div style={{ display: 'flex', gap: 3, position: 'relative' }}>
+            {/* Left panel */}
+            <div style={{
+              width: 80,
+              background: 'linear-gradient(160deg, #E8392B, #B02818)',
+              borderRadius: '6px 6px 2px 2px',
+              padding: '10px 8px 12px',
+              textAlign: 'center',
+              boxShadow: '2px 4px 14px rgba(0,0,0,0.4)',
+              border: '2px solid #8B1A0A',
+              transform: 'rotate(-4deg)',
+              transformOrigin: 'top center',
+            }}>
+              <p style={{
+                fontFamily: "'Playfair Display', serif",
+                fontStyle: 'italic',
+                color: '#FFF5EE', fontSize: 14, fontWeight: 700,
+                margin: '0 0 4px',
+              }}>My Bakery</p>
+              <div style={{ height: 1, background: 'rgba(255,245,238,0.35)', margin: '5px 0' }}/>
+              <p style={{ color: 'rgba(255,245,238,0.85)', fontSize: 9, margin: '0 0 2px', letterSpacing: 1, textTransform: 'uppercase' }}>Open</p>
+              <p style={{ color: '#FFF5EE', fontSize: 12, fontWeight: 800, margin: '0 0 1px' }}>10 AM</p>
+              <p style={{ color: 'rgba(255,245,238,0.7)', fontSize: 10, margin: 0 }}>– 9 PM</p>
+            </div>
+
+            {/* Right panel (back) */}
+            <div style={{
+              width: 80,
+              background: 'linear-gradient(160deg, #C0301F, #8B1A0A)',
+              borderRadius: '6px 6px 2px 2px',
+              padding: '10px 8px 12px',
+              textAlign: 'center',
+              boxShadow: '2px 4px 14px rgba(0,0,0,0.3)',
+              border: '2px solid #6B1008',
+              transform: 'rotate(4deg)',
+              transformOrigin: 'top center',
+            }}>
+              <p style={{
+                fontFamily: "'Playfair Display', serif",
+                fontStyle: 'italic',
+                color: 'rgba(255,245,238,0.7)', fontSize: 12, fontWeight: 700,
+                margin: '0 0 4px',
+              }}>Fresh</p>
+              <div style={{ height: 1, background: 'rgba(255,245,238,0.2)', margin: '5px 0' }}/>
+              <p style={{ color: 'rgba(255,245,238,0.6)', fontSize: 9, margin: '0 0 2px', letterSpacing: 1 }}>BAKED</p>
+              <p style={{ color: 'rgba(255,245,238,0.7)', fontSize: 12, fontWeight: 800, margin: 0 }}>Daily</p>
+            </div>
           </div>
-          {/* Board legs */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0 10px' }}>
-            <div style={{ width: 3, height: 18, background: '#8B6914', borderRadius: 2, transform: 'rotate(-8deg)', transformOrigin: 'top' }}/>
-            <div style={{ width: 3, height: 18, background: '#8B6914', borderRadius: 2, transform: 'rotate(8deg)', transformOrigin: 'top' }}/>
+
+          {/* Legs */}
+          <div style={{ display: 'flex', gap: 50, marginTop: -4 }}>
+            <div style={{ width: 4, height: 22, background: '#6B4C14', borderRadius: '0 0 2px 2px', transform: 'rotate(-8deg)', transformOrigin: 'top' }}/>
+            <div style={{ width: 4, height: 22, background: '#6B4C14', borderRadius: '0 0 2px 2px', transform: 'rotate(8deg)', transformOrigin: 'top' }}/>
           </div>
+          {/* Foot bar */}
+          <div style={{ width: 70, height: 4, background: '#5C3D10', borderRadius: 2, marginTop: -2 }}/>
         </div>
 
         {/* ── BAKERY WINDOW ── */}
         <div className="window-container" style={{
           width: '100%',
-          maxWidth: 460,
+          maxWidth: 440,
           position: 'relative',
           zIndex: 10,
         }}>
-          {/* Window outer frame */}
+          {/* Window outer wooden frame */}
           <div style={{
             background: '#5C3317',
             borderRadius: 16,
-            padding: 14,
-            boxShadow: '0 20px 60px rgba(0,0,0,0.5), inset 0 2px 4px rgba(255,255,255,0.08)',
+            padding: 12,
+            boxShadow: '0 24px 70px rgba(0,0,0,0.6), inset 0 2px 4px rgba(255,255,255,0.06)',
             border: '3px solid #3D2008',
           }}>
             {/* Window glass */}
             <div style={{
-              background: 'rgba(200,230,255,0.08)',
-              backdropFilter: 'blur(8px)',
-              WebkitBackdropFilter: 'blur(8px)',
-              borderRadius: 10,
-              padding: '20px 20px 16px',
-              border: '1px solid rgba(255,255,255,0.12)',
-              boxShadow: 'inset 0 0 40px rgba(0,0,0,0.3)',
+              background: 'rgba(180,210,255,0.06)',
+              backdropFilter: 'blur(6px)',
+              WebkitBackdropFilter: 'blur(6px)',
+              borderRadius: 8,
+              padding: '20px 18px 18px',
+              border: '1px solid rgba(255,255,255,0.08)',
+              boxShadow: 'inset 0 0 40px rgba(0,0,0,0.25)',
             }}>
-              {/* Window top label */}
-              <div style={{ textAlign: 'center', marginBottom: 16 }}>
-                <span style={{
-                  fontFamily: "'Playfair Display', serif",
-                  fontStyle: 'italic',
-                  color: 'rgba(255,240,220,0.45)',
-                  fontSize: 11, letterSpacing: 3,
-                  textTransform: 'uppercase',
-                }}>· Display Window ·</span>
-              </div>
 
-              {/* ── LOGIN CARD ── */}
+              {/* LOGIN CARD */}
               <div style={{
                 background: '#FDF6EE',
                 borderRadius: 14,
-                padding: '26px 24px 22px',
-                boxShadow: '0 8px 28px rgba(0,0,0,0.18)',
+                padding: '26px 22px 22px',
+                boxShadow: '0 8px 28px rgba(0,0,0,0.2)',
               }}>
-                <div style={{ textAlign: 'center', marginBottom: 20 }}>
-                  <div style={{ fontSize: 36, marginBottom: 8 }}>🧁</div>
+                <div style={{ textAlign: 'center', marginBottom: 18 }}>
                   <h1 style={{
                     fontFamily: "'Playfair Display', serif",
                     fontSize: 22, color: '#4A3528',
@@ -369,13 +354,6 @@ export default function LoginPage() {
                   </button>
                 </p>
               </div>
-
-              {/* Window bottom label */}
-              <p style={{
-                textAlign: 'center', margin: '14px 0 0',
-                color: 'rgba(255,240,220,0.3)',
-                fontSize: 10, letterSpacing: 3,
-              }}>✦ OPEN DAILY · FRESH BAKED GOODS ✦</p>
             </div>
           </div>
         </div>
