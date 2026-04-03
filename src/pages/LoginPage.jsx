@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { signInWithEmail, signUpWithEmail, signInWithGoogle } from '../lib/supabase'
 
@@ -9,13 +9,7 @@ export default function LoginPage() {
   const [name, setName] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
-  const [doorOpen, setDoorOpen] = useState(false)
-  const [entered, setEntered] = useState(false)
   const navigate = useNavigate()
-
-  useEffect(() => {
-    setTimeout(() => setDoorOpen(true), 300)
-  }, [])
 
   const handleSubmit = async () => {
     setError('')
@@ -33,8 +27,7 @@ export default function LoginPage() {
         const { error } = await signInWithEmail(email, password)
         if (error) throw error
       }
-      setEntered(true)
-      setTimeout(() => navigate('/'), 800)
+      navigate('/')
     } catch (err) {
       setError(err.message || 'Something went wrong.')
     }
@@ -49,288 +42,224 @@ export default function LoginPage() {
   return (
     <div style={{
       minHeight: '100vh',
-      background: '#F5EDE0',
+      background: 'linear-gradient(160deg, #2C1A10 0%, #4A2C1A 40%, #3B2010 70%, #1C0F07 100%)',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      justifyContent: 'center',
-      overflow: 'hidden',
-      position: 'relative',
       fontFamily: "'Nunito', sans-serif",
+      position: 'relative',
+      overflow: 'hidden',
     }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Nunito:wght@400;600;700;800&display=swap');
 
-        @keyframes doorOpen {
-          0% { transform: perspective(1200px) rotateY(0deg); }
-          100% { transform: perspective(1200px) rotateY(-42deg); }
+        @keyframes windowFadeIn {
+          from { opacity: 0; transform: translateY(30px) scale(0.97); }
+          to { opacity: 1; transform: translateY(0px) scale(1); }
         }
-        @keyframes fadeSlideUp {
-          from { opacity: 0; transform: translateY(40px); }
-          to { opacity: 1; transform: translateY(0); }
+        @keyframes windowFloat {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-8px); }
         }
-        @keyframes awningSwing {
-          0%, 100% { transform: rotate(-1deg); }
-          50% { transform: rotate(1deg); }
+        .window-container {
+          animation: windowFadeIn 1s ease forwards, windowFloat 5s ease-in-out 1s infinite;
         }
-        @keyframes signSway {
-          0%, 100% { transform: rotate(-3deg); }
-          50% { transform: rotate(3deg); }
-        }
-        @keyframes sparkle {
-          0%, 100% { opacity: 0; transform: scale(0); }
-          50% { opacity: 1; transform: scale(1); }
-        }
-        @keyframes enterBakery {
-          0% { opacity: 1; transform: scale(1); }
-          100% { opacity: 0; transform: scale(1.5); }
-        }
-        .storefront { animation: fadeSlideUp 0.8s ease forwards; }
-        .awning-wrap { animation: awningSwing 4s ease-in-out infinite; transform-origin: top center; }
-        .sign-board { animation: signSway 3s ease-in-out infinite; transform-origin: top center; }
-        .door-panel {
-          transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-          transform-origin: left center;
-          transform-style: preserve-3d;
-        }
-        .door-panel.open {
-          animation: doorOpen 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-        }
-        .card-enter { animation: fadeSlideUp 0.6s ease 1s both; }
-        .enter-animation { animation: enterBakery 0.8s ease forwards; }
-        input { outline: none; }
-        input:focus { border-color: #C0392B !important; }
-        .google-btn:hover { background: #f8f8f8 !important; transform: translateY(-1px); }
-        .sign-in-btn:hover { background: #A93226 !important; transform: translateY(-1px); }
+        .sign-btn { transition: all 0.2s ease !important; }
+        .sign-btn:hover { transform: scale(1.03) !important; background: #A93226 !important; }
+        .google-btn { transition: all 0.2s ease !important; }
+        .google-btn:hover { transform: scale(1.02) !important; background: #f5f5f5 !important; }
+        input:focus { border-color: #C0392B !important; box-shadow: 0 0 0 3px rgba(192,57,43,0.1) !important; outline: none !important; }
       `}</style>
 
-      {/* Brick wall background */}
-      <div style={{
-        position: 'fixed', inset: 0, zIndex: 0,
-        background: '#E8D5C0',
-        backgroundImage: `
-          repeating-linear-gradient(0deg, transparent, transparent 30px, rgba(180,140,100,0.15) 30px, rgba(180,140,100,0.15) 32px),
-          repeating-linear-gradient(90deg, transparent, transparent 60px, rgba(180,140,100,0.1) 60px, rgba(180,140,100,0.1) 62px)
-        `,
-      }}/>
+      {/* ── RED STRIPED AWNING ── */}
+      <div style={{ width: '100%', position: 'relative', flexShrink: 0, zIndex: 10 }}>
+        <div style={{
+          width: '100%',
+          background: 'repeating-linear-gradient(90deg, #C0392B 0px, #C0392B 36px, #A93226 36px, #A93226 72px)',
+          paddingTop: 16,
+          paddingBottom: 8,
+          boxShadow: '0 6px 24px rgba(0,0,0,0.5)',
+        }}>
+          <p style={{
+            textAlign: 'center', margin: 0,
+            fontFamily: "'Playfair Display', serif",
+            fontStyle: 'italic', fontWeight: 700,
+            fontSize: 22, color: 'rgba(255,255,255,0.95)',
+            textShadow: '0 2px 6px rgba(0,0,0,0.4)',
+            letterSpacing: 2,
+          }}>✦ My Bakery ✦</p>
+          <p style={{
+            textAlign: 'center', margin: '2px 0 0',
+            fontSize: 10, color: 'rgba(255,255,255,0.6)',
+            letterSpacing: 4,
+          }}>EST. 2024 · FRESH DAILY</p>
+        </div>
 
-      {/* Main storefront */}
-      <div className={`storefront ${entered ? 'enter-animation' : ''}`} style={{
-        position: 'relative', zIndex: 10,
-        width: '100%', maxWidth: 520,
-        padding: '0 16px',
+        {/* Scalloped fringe */}
+        <div style={{ display: 'flex', width: '100%', overflow: 'hidden' }}>
+          {Array.from({ length: 20 }).map((_, i) => (
+            <div key={i} style={{
+              flex: 1, height: 26,
+              background: '#C0392B',
+              clipPath: 'polygon(0 0, 100% 0, 50% 100%)',
+            }}/>
+          ))}
+        </div>
+      </div>
+
+      {/* ── MAIN CONTENT ── */}
+      <div style={{
+        flex: 1,
+        width: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '30px 16px 40px',
       }}>
 
-        {/* Awning */}
-        <div className="awning-wrap" style={{ marginBottom: -8 }}>
+        {/* Bakery window frame */}
+        <div style={{
+          width: '100%',
+          maxWidth: 480,
+          background: 'rgba(255,245,235,0.06)',
+          backdropFilter: 'blur(12px)',
+          WebkitBackdropFilter: 'blur(12px)',
+          border: '3px solid rgba(255,200,150,0.2)',
+          borderRadius: 20,
+          boxShadow: '0 30px 80px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.1)',
+          padding: 28,
+        }} className="window-container">
+
+          {/* Window header */}
           <div style={{
-            background: 'repeating-linear-gradient(90deg, #C0392B 0px, #C0392B 28px, #E74C3C 28px, #E74C3C 56px)',
-            borderRadius: '8px 8px 0 0',
-            padding: '18px 0 6px',
-            boxShadow: '0 4px 20px rgba(0,0,0,0.25)',
-            position: 'relative',
+            textAlign: 'center',
+            marginBottom: 20,
+            paddingBottom: 16,
+            borderBottom: '1px solid rgba(255,200,150,0.15)',
           }}>
-            {/* Bakery name on awning */}
+            <div style={{ fontSize: 40, marginBottom: 6 }}>🧁</div>
             <p style={{
               fontFamily: "'Playfair Display', serif",
               fontStyle: 'italic',
-              color: 'rgba(255,255,255,0.95)',
-              textAlign: 'center',
-              fontSize: 22,
-              fontWeight: 700,
-              letterSpacing: 1,
-              textShadow: '0 2px 4px rgba(0,0,0,0.3)',
+              color: 'rgba(245,230,211,0.5)',
+              fontSize: 12,
+              letterSpacing: 3,
               margin: 0,
-            }}>My Bakery</p>
-            <p style={{ color: 'rgba(255,255,255,0.7)', textAlign: 'center', fontSize: 11, margin: '2px 0 0', letterSpacing: 3 }}>
-              ✦ SPECIAL DAY ✦
-            </p>
-            {/* Fringe */}
-            <div style={{ display: 'flex', marginTop: 6 }}>
-              {Array.from({ length: 16 }).map((_, i) => (
-                <div key={i} style={{
-                  flex: 1, height: 20,
-                  background: '#C0392B',
-                  clipPath: 'polygon(0 0, 100% 0, 50% 100%)',
-                }}/>
-              ))}
-            </div>
+              textTransform: 'uppercase',
+            }}>Bakery Display Window</p>
           </div>
-        </div>
 
-        {/* Shop window / main card */}
-        <div style={{
-          background: '#3D1F0D',
-          borderRadius: '0 0 12px 12px',
-          padding: 20,
-          boxShadow: '0 20px 60px rgba(0,0,0,0.4)',
-          position: 'relative',
-          overflow: 'hidden',
-        }}>
-
-          {/* Window display area with door */}
+          {/* Login card inside window */}
           <div style={{
-            background: 'rgba(255,220,180,0.08)',
-            border: '3px solid #8B5E3C',
-            borderRadius: 8,
-            padding: 16,
-            marginBottom: 16,
-            position: 'relative',
-            overflow: 'hidden',
-            minHeight: 80,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: 16,
-          }}>
-            {/* Door animation */}
-            <div style={{
-              position: 'absolute', left: 0, top: 0, bottom: 0,
-              width: '50%',
-              perspective: 1200,
-            }}>
-              <div className={`door-panel ${doorOpen ? 'open' : ''}`} style={{
-                position: 'absolute', inset: 0,
-                background: 'linear-gradient(135deg, #8B4513, #6B3410)',
-                borderRight: '3px solid #5C2D0A',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: 8,
-              }}>
-                <div style={{
-                  width: 28, height: 40,
-                  border: '2px solid rgba(255,200,100,0.4)',
-                  borderRadius: 4,
-                }}/>
-                <div style={{
-                  width: 8, height: 8,
-                  borderRadius: '50%',
-                  background: '#DAA520',
-                  marginLeft: 20,
-                }}/>
-              </div>
-            </div>
-
-            {/* Window content (visible after door opens) */}
-            <div style={{
-              opacity: doorOpen ? 1 : 0,
-              transition: 'opacity 0.8s ease 0.8s',
-              textAlign: 'center',
-              zIndex: 2,
-            }}>
-              <div style={{ fontSize: 32, marginBottom: 4 }}>🧁</div>
-              <p style={{
-                fontFamily: "'Playfair Display', serif",
-                fontStyle: 'italic',
-                color: '#F5E6D3',
-                fontSize: 13,
-                margin: 0,
-              }}>Come on in!</p>
-            </div>
-
-            {/* Decorative oval frame */}
-            <div style={{
-              width: 70, height: 90,
-              border: '3px solid #DAA520',
-              borderRadius: '50%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              background: 'rgba(218,165,32,0.1)',
-              opacity: doorOpen ? 1 : 0,
-              transition: 'opacity 0.8s ease 1s',
-              zIndex: 2,
-              flexShrink: 0,
-            }}>
-              <span style={{ fontSize: 28 }}>🍰</span>
-            </div>
-          </div>
-
-          {/* Login form card */}
-          <div className="card-enter" style={{
             background: 'rgba(253,246,238,0.97)',
-            borderRadius: 14,
-            padding: '24px 24px 20px',
+            borderRadius: 16,
+            padding: '28px 26px 24px',
+            boxShadow: '0 8px 32px rgba(0,0,0,0.2)',
           }}>
-            <div style={{ textAlign: 'center', marginBottom: 18 }}>
+            <div style={{ textAlign: 'center', marginBottom: 20 }}>
               <h1 style={{
                 fontFamily: "'Playfair Display', serif",
-                fontSize: 22,
+                fontSize: 24,
                 color: '#4A3528',
-                margin: '0 0 4px',
+                margin: '0 0 5px',
+                fontWeight: 700,
               }}>Welcome to My Bakery</h1>
-              <p style={{ color: '#8B7355', fontSize: 13, margin: 0 }}>
+              <p style={{ color: '#8B7355', fontSize: 14, margin: 0 }}>
                 {mode === 'login' ? 'Sign in to explore recipes ✨' : 'Create your baker account ✨'}
               </p>
             </div>
 
             {error && (
               <div style={{
-                marginBottom: 12,
-                padding: '8px 12px',
+                marginBottom: 14,
+                padding: '10px 14px',
                 borderRadius: 10,
                 fontSize: 13,
                 fontWeight: 600,
-                background: error.includes('Check') ? '#E8F5E9' : '#FEE',
-                color: error.includes('Check') ? '#2E7D32' : '#C33',
+                background: error.includes('Check') ? '#E8F5E9' : '#FEE2E2',
+                color: error.includes('Check') ? '#2E7D32' : '#C0392B',
               }}>{error}</div>
             )}
 
             {mode === 'signup' && (
               <input
-                type="text" placeholder="Your name" value={name}
+                type="text"
+                placeholder="Your name"
+                value={name}
                 onChange={e => setName(e.target.value)}
                 style={{
-                  width: '100%', padding: '11px 14px', marginBottom: 10,
-                  border: '1.5px solid #E8D5C0', borderRadius: 10,
-                  fontFamily: "'Nunito', sans-serif", fontSize: 14,
-                  background: '#FDF6EE', color: '#4A3528', display: 'block',
+                  width: '100%', display: 'block',
+                  padding: '12px 16px', marginBottom: 10,
+                  border: '1.5px solid #E8D5C0',
+                  borderRadius: 12,
+                  fontFamily: "'Nunito', sans-serif",
+                  fontSize: 14, background: '#FDF6EE',
+                  color: '#4A3528', boxSizing: 'border-box',
+                  transition: 'all 0.2s',
                 }}
               />
             )}
 
             <input
-              type="email" placeholder="Email address" value={email}
+              type="email"
+              placeholder="Email address"
+              value={email}
               onChange={e => setEmail(e.target.value)}
               onKeyDown={e => e.key === 'Enter' && handleSubmit()}
               style={{
-                width: '100%', padding: '11px 14px', marginBottom: 10,
-                border: '1.5px solid #E8D5C0', borderRadius: 10,
-                fontFamily: "'Nunito', sans-serif", fontSize: 14,
-                background: '#FDF6EE', color: '#4A3528', display: 'block',
+                width: '100%', display: 'block',
+                padding: '12px 16px', marginBottom: 10,
+                border: '1.5px solid #E8D5C0',
+                borderRadius: 12,
+                fontFamily: "'Nunito', sans-serif",
+                fontSize: 14, background: '#FDF6EE',
+                color: '#4A3528', boxSizing: 'border-box',
+                transition: 'all 0.2s',
               }}
             />
+
             <input
-              type="password" placeholder="Password" value={password}
+              type="password"
+              placeholder="Password"
+              value={password}
               onChange={e => setPassword(e.target.value)}
               onKeyDown={e => e.key === 'Enter' && handleSubmit()}
               style={{
-                width: '100%', padding: '11px 14px', marginBottom: 14,
-                border: '1.5px solid #E8D5C0', borderRadius: 10,
-                fontFamily: "'Nunito', sans-serif", fontSize: 14,
-                background: '#FDF6EE', color: '#4A3528', display: 'block',
+                width: '100%', display: 'block',
+                padding: '12px 16px', marginBottom: 16,
+                border: '1.5px solid #E8D5C0',
+                borderRadius: 12,
+                fontFamily: "'Nunito', sans-serif",
+                fontSize: 14, background: '#FDF6EE',
+                color: '#4A3528', boxSizing: 'border-box',
+                transition: 'all 0.2s',
               }}
             />
 
             <button
-              className="sign-in-btn"
-              onClick={handleSubmit} disabled={loading}
+              className="sign-btn"
+              onClick={handleSubmit}
+              disabled={loading}
               style={{
-                width: '100%', padding: '12px', marginBottom: 10,
-                background: '#C0392B', color: 'white',
-                border: 'none', borderRadius: 10,
-                fontFamily: "'Nunito', sans-serif", fontSize: 15, fontWeight: 800,
-                cursor: 'pointer', transition: 'all 0.2s',
+                width: '100%', display: 'block',
+                padding: '13px', marginBottom: 12,
+                background: '#C0392B',
+                color: 'white', border: 'none',
+                borderRadius: 12, cursor: 'pointer',
+                fontFamily: "'Nunito', sans-serif",
+                fontSize: 15, fontWeight: 800,
+                boxShadow: '0 4px 15px rgba(192,57,43,0.3)',
               }}
             >
               {loading ? 'Loading...' : mode === 'login' ? 'Sign In' : 'Create Account'}
             </button>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, margin: '8px 0' }}>
+            <div style={{
+              display: 'flex', alignItems: 'center',
+              gap: 12, margin: '4px 0 12px',
+            }}>
               <div style={{ flex: 1, height: 1, background: '#E8D5C0' }}/>
-              <span style={{ color: '#aaa', fontSize: 12 }}>or</span>
+              <span style={{ color: '#C4A882', fontSize: 12, fontWeight: 600 }}>or</span>
               <div style={{ flex: 1, height: 1, background: '#E8D5C0' }}/>
             </div>
 
@@ -338,12 +267,15 @@ export default function LoginPage() {
               className="google-btn"
               onClick={handleGoogle}
               style={{
-                width: '100%', padding: '11px 14px', marginBottom: 12,
-                background: 'white', border: '1.5px solid #ddd',
-                borderRadius: 10, display: 'flex', alignItems: 'center',
-                justifyContent: 'center', gap: 10,
-                fontFamily: "'Nunito', sans-serif", fontSize: 14, fontWeight: 700,
-                color: '#444', cursor: 'pointer', transition: 'all 0.2s',
+                width: '100%', display: 'flex',
+                alignItems: 'center', justifyContent: 'center',
+                gap: 10, padding: '12px 16px', marginBottom: 16,
+                background: 'white',
+                border: '1.5px solid #E8D5C0',
+                borderRadius: 12, cursor: 'pointer',
+                fontFamily: "'Nunito', sans-serif",
+                fontSize: 14, fontWeight: 700, color: '#555',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
               }}
             >
               <svg width="18" height="18" viewBox="0 0 24 24">
@@ -358,37 +290,29 @@ export default function LoginPage() {
             <p style={{ textAlign: 'center', fontSize: 13, color: '#8B7355', margin: 0 }}>
               {mode === 'login' ? "Don't have an account? " : 'Already have an account? '}
               <button
-                style={{ background: 'none', border: 'none', color: '#C0392B', cursor: 'pointer', fontWeight: 800, fontSize: 13, textDecoration: 'underline', fontFamily: "'Nunito', sans-serif" }}
                 onClick={() => { setMode(mode === 'login' ? 'signup' : 'login'); setError('') }}
+                style={{
+                  background: 'none', border: 'none',
+                  color: '#C0392B', cursor: 'pointer',
+                  fontWeight: 800, fontSize: 13,
+                  fontFamily: "'Nunito', sans-serif",
+                  textDecoration: 'underline',
+                }}
               >
                 {mode === 'login' ? 'Sign up' : 'Sign in'}
               </button>
             </p>
           </div>
 
-          {/* Sandwich board sign */}
-          <div className="sign-board" style={{
-            position: 'absolute', right: -10, bottom: -10,
-            width: 70, padding: '8px 6px',
-            background: '#C0392B',
-            borderRadius: 6,
+          {/* Bottom window label */}
+          <p style={{
             textAlign: 'center',
-            boxShadow: '2px 2px 8px rgba(0,0,0,0.3)',
-          }}>
-            <p style={{ color: 'rgba(255,255,255,0.9)', fontSize: 8, fontWeight: 800, margin: '0 0 2px', letterSpacing: 1 }}>OPENING</p>
-            <p style={{ color: 'white', fontSize: 13, fontWeight: 800, margin: '0 0 2px', fontFamily: "'Playfair Display', serif" }}>10 AM</p>
-            <div style={{ height: 1, background: 'rgba(255,255,255,0.3)', margin: '3px 0' }}/>
-            <p style={{ color: 'rgba(255,255,255,0.9)', fontSize: 13, fontWeight: 800, margin: 0, fontFamily: "'Playfair Display', serif" }}>9 PM</p>
-          </div>
+            color: 'rgba(245,230,211,0.3)',
+            fontSize: 10, letterSpacing: 3,
+            margin: '16px 0 0',
+            textTransform: 'uppercase',
+          }}>✦ Open Daily · Fresh Baked Goods ✦</p>
         </div>
-
-        {/* Bottom text */}
-        <p style={{
-          textAlign: 'center', color: 'rgba(107,79,58,0.6)',
-          fontSize: 11, marginTop: 16, letterSpacing: 1,
-        }}>
-          ✦ FRESH BAKED DAILY ✦ MADE WITH LOVE ✦
-        </p>
       </div>
     </div>
   )
