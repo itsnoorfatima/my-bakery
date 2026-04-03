@@ -70,7 +70,6 @@ export default function LoginPage() {
     }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Nunito:wght@400;600;700;800&display=swap');
-
         @keyframes pageIn {
           from { opacity: 0; }
           to { opacity: 1; }
@@ -100,15 +99,16 @@ export default function LoginPage() {
 
       <div className="page-wrap" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
 
-        {/* ── AWNING — brought lower/taller ── */}
+        {/* ── AWNING ── */}
         <div style={{ width: '100%', flexShrink: 0, zIndex: 20 }}>
           <div style={{
             width: '100%',
             background: 'repeating-linear-gradient(90deg, #E8392B 0px, #E8392B 44px, #C0301F 44px, #C0301F 88px)',
             paddingTop: 40,
             paddingBottom: 20,
-            boxShadow: '0 8px 32px rgba(0,0,0,0.5)',
+            boxShadow: '0 8px 32px rgba(0,0,0,0.6), inset 0 -4px 12px rgba(0,0,0,0.3)',
             position: 'relative',
+            borderBottom: '4px solid #96201A',
           }}>
             <div style={{
               position: 'absolute', inset: 0,
@@ -124,13 +124,16 @@ export default function LoginPage() {
               letterSpacing: 3,
             }}>✦ My Bakery ✦</p>
           </div>
+
           {/* Scalloped fringe */}
-          <div style={{ display: 'flex', width: '100%', background: '#C0301F' }}>
+          <div style={{ display: 'flex', width: '100%', background: '#96201A' }}>
             {Array.from({ length: 24 }).map((_, i) => (
               <div key={i} style={{
-                flex: 1, height: 34,
+                flex: 1, height: 36,
                 background: '#E8392B',
                 borderRadius: '0 0 50% 50%',
+                boxShadow: '0 4px 6px rgba(0,0,0,0.3)',
+                border: '1px solid #C0301F',
               }}/>
             ))}
           </div>
@@ -362,9 +365,10 @@ export default function LoginPage() {
         {/* Ground */}
         <div style={{
           width: '100%', height: 44,
-          background: 'linear-gradient(180deg, #6B5010 0%, #4A3408 100%)',
+          background: 'linear-gradient(180deg, #3D2008 0%, #2C1408 100%)',
           flexShrink: 0,
-          boxShadow: 'inset 0 4px 14px rgba(0,0,0,0.4)',
+          boxShadow: 'inset 0 4px 14px rgba(0,0,0,0.6)',
+          borderTop: '3px solid #5C3317',
         }}/>
       </div>
     </div>
